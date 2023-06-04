@@ -12,8 +12,8 @@ public class ReqresTests extends TestBase {
                 "    \"name\": \"morpheus\",\n" +
                 "    \"job\": \"zion resident\"\n" +
                 "}";
-        String userName = "morpheus";
-        String userJob = "zion resident";
+        String name = "morpheus";
+        String job = "zion resident";
 
         given()
                 .log().uri()
@@ -26,8 +26,8 @@ public class ReqresTests extends TestBase {
                 .log().status()
                 .log().body()
                 .statusCode(200)
-                .body("name", is(userName))
-                .body("job ", is(userJob));
+                .body("name", is(name))
+                .body("job ", is(job));
     }
 
     @Test
@@ -46,6 +46,7 @@ public class ReqresTests extends TestBase {
         String requestBody = "{\n" +
                 "    \"email\": \"sydney@fife\"\n" +
                 "}";
+        String error = "Missing password";
 
         given()
                 .log().uri()
@@ -58,12 +59,13 @@ public class ReqresTests extends TestBase {
                 .log().status()
                 .log().body()
                 .statusCode(400)
-                .body("error", is("Missing password"));
+                .body("error", is(error));
     }
 
     @Test
     void successfulRegisterTest() {
         String requestBody = "{ \"email\": \"eve.holt@reqres.in\", \"password\": \"pistol\" }";
+        String token = "QpwL5tke4Pnpja7X4";
 
         given()
                 .log().uri()
@@ -77,7 +79,7 @@ public class ReqresTests extends TestBase {
                 .log().body()
                 .statusCode(200)
                 .body("id", is(4))
-                .body("token", is("QpwL5tke4Pnpja7X4"));
+                .body("token", is(token));
     }
 
     @Test
